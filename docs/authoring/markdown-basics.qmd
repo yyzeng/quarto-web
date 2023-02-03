@@ -191,14 +191,6 @@ Quarto has native support for embedding [Mermaid](https://mermaid-js.github.io/m
 
 For example, here we embed a flowchart created using Mermaid:
 
-```{mermaid}
-%%| echo: fenced
-flowchart LR
-  A[Hard edge] --> B(Round edge)
-  B --> C{Decision}
-  C --> D[Result one]
-  C --> E[Result two]
-```
 
 Learn more in the article on [Diagrams](diagrams.qmd).
 

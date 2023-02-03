@@ -1,0 +1,10 @@
+{
+  "hash": "07fe0491a1778d0fbd0c781651db6142",
+  "result": {
+    "markdown": "---\nformat: revealjs\n---\n\n\n\n::: {.cell execution_count=2}\n``` {.python .cell-code}\nalt.Chart(cars).mark_point().encode(\n    x='Horsepower',\n    y='Miles_per_Gallon',\n    color='Origin',\n).properties(\n    width=700,\n    height=300\n).interactive()\n```\n\n::: {.cell-output .cell-output-stderr}\n```\n/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/altair/utils/core.py:317: FutureWarning:\n\niteritems is deprecated and will be removed in a future version. Use .items instead.\n\n```\n:::\n\n::: {.cell-output .cell-output-display execution_count=2}\n```\nalt.Chart(...)\n```\n:::\n:::\n\n\n",
+    "supporting": [
+      "executable-code-figure-size_files/figure-publish"
+    ],
+    "filters": []
+  }
+}
