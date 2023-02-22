@@ -74,7 +74,7 @@ Note that the target file (in this case `notebook.ipynb`) should always be the v
 
 ## YAML Front Matter
 
-The first cell of your notebook should be a **Raw** cell that contains the document title, author, and any other options you need to specify. Note that you can switch the type of a call to **Raw** using the notebook toolbar:
+The first cell of your notebook should be a **Raw** cell that contains the document title, author, and any other options you need to specify. Note that you can switch the type of a cell to **Raw** using the notebook toolbar:
 
 ![](images/jupyter-lab-yaml.png){.border fig-alt="The top section of a JupyterLab document. There is a Raw cell containing yaml front matter."}
 
@@ -100,9 +100,8 @@ There are many output options available, including options to optionally hide co
 
 ## Cell Execution
 
-``` include
-../computations/_jupyter-execute.md
-```
+{{< include ../computations/_jupyter-execute.md >}}
+
 
 There are many other execution options available (e.g. to control caching, optimizing kernel start-up time, etc.). Learn more about these options in [Execution Options](../computations/execution-options.qmd).
 

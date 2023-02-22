@@ -170,11 +170,15 @@ You should generally check the `environment.yml` file into version control.
 
 ### Restoring Environments
 
-To reproduce the environment on another machine you just pass the `environment.yml` file as an argument to `conda create`:
+To reproduce the environment on another machine you just pass the `environment.yml` file as an argument to `conda env create`:
 
 ```{.bash filename="Terminal"}
-conda create --prefix env -f environment.yml
+conda env create --prefix env -f environment.yml
 ```
+
+### More information
+
+For more on conda's `environment.yml`, see Conda's [Managing Environments](https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html) documentation.
 
 ## Using renv
 
@@ -259,6 +263,6 @@ If you need to install Python packages, simply use `pip` or `conda` within the t
 
 If you create a virtual environment in the `env/` directory as described above, Visual Studio Code should automatically discover that environment when you load a workspace from the environment's parent directory.
 
-Note that this applies only to `venv` not Conda environments (which have a separate mechansim for binding to the current VS Code session).
+Note that this applies only to `venv` not Conda environments (which have a separate mechanism for binding to the current VS Code session).
 
 You can read more about VS Code support for virtual environments here: <https://code.visualstudio.com/docs/python/environments>.

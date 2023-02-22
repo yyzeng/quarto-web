@@ -42,6 +42,8 @@
       href: ../tools/rstudio.qmd
     - text: VS Code
       href: ../tools/vscode.qmd
+    - text: Neovim
+      href: ../tools/neovim.qmd
     - text: Text Editors
       href: ../tools/text-editors.qmd
     - text: Visual Editor
@@ -84,8 +86,6 @@
       href: ../websites/website-blog.qmd
     - text: "Website Search"
       href: ../websites/website-search.qmd
-    - text: "About Pages"
-      href: ../websites/website-about.qmd
     - text: "Website Listings"
       href: ../websites/website-listings.qmd
    
@@ -102,20 +102,6 @@
    - text: "Customizing Output"
      href: ../books/book-output.qmd    
   
-- title: Journal Articles
-  subtitle: Author articles for professional journals 
-  links:
-    - text: "Journal Articles"
-      href: ../journals/index.qmd
-    - text: "Journal Formats"
-      href: ../journals/formats.qmd
-    - text: "Article Templates"
-      href: ../journals/templates.qmd
-    - text: "Authors & Affilations"
-      href: ../journals/authors.qmd
-
-
-
 - title: Interactivity
   subtitle: Engage readers with interactivity
   links:
@@ -140,7 +126,7 @@
        href: ../publishing/quarto-pub.qmd
      - text: GitHub Pages
        href: ../publishing/github-pages.qmd
-     - text: RStudio Connect
+     - text: Posit Connect
        href: ../publishing/rstudio-connect.qmd
      - text: Netlify
        href: ../publishing/netlify.qmd
@@ -154,30 +140,15 @@
       href: ../projects/quarto-projects.qmd
     - text: Managing Execution
       href: ../projects/code-execution.qmd
-    - text: Virtual Environments
-      href: ../projects/virtual-environments.qmd
+    - text: Project Profiles
+      href: ../projects/profiles.qmd
+    - text: Environment Variables
+      href: ../projects/environment.qmd
     - text: Project Scripts
       href: ../projects/scripts.qmd
+    - text: Virtual Environments
+      href: ../projects/virtual-environments.qmd
  
-
-- title: Extensions
-  subtitle: Add new capabiliites to Quarto
-  links:
-    - text: "Using Extensions"
-      href: ../extensions/index.qmd
-    - text: "Creating Shortcodes"
-      href: ../extensions/shortcodes.qmd
-    - text: "Creating Filters"
-      href: ../extensions/filters.qmd
-    - text: "Creating Formats"
-      href: ../extensions/formats.qmd
-    - text: "Developing with Lua"
-      href: ../extensions/lua.qmd
-    - text: "Distributing Extensions"
-      href: ../extensions/distributing.qmd
-
-
-
 
 - title: Advanced
   subtitle: Refine documents with advanced tools

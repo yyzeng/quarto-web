@@ -18,6 +18,7 @@ website:
   repo-actions: [edit, issue]
   page-navigation: true
   search:
+    type: overlay
     algolia:
       index-name: prod_QUARTO
       application-id: ZPJB5I1QN7
@@ -27,7 +28,7 @@ website:
   page-footer:
     left: |
       Proudly supported by
-      [![](https://www.rstudio.com/wp-content/uploads/2018/10/RStudio-Logo-flat.svg){fig-alt="RStudio" width=65px}](https://www.rstudio.com)
+      [![](https://www.rstudio.com/assets/img/posit-logo-fullcolor-TM.svg){fig-alt="Posit" width=65px}](https://posit.co)
     center:
       - text: "About"
         href: about.qmd
@@ -44,6 +45,9 @@ website:
       - icon: github
         href: https://github.com/quarto-dev/quarto-cli
         aria-label: Quarto GitHub
+      - icon: rss
+        href: https://quarto.org/docs/blog/index.xml
+        aria-label: Quarto Blog RSS        
   navbar:
     background: light
     logo: quarto.png
@@ -57,6 +61,8 @@ website:
         href: docs/get-started/index.qmd
       - text: "Guide"
         href: docs/guide/index.qmd
+      - text: Extensions
+        href: docs/extensions/index.qmd
       - text: "Reference"
         href: docs/reference/index.qmd
       - text: "Gallery"
@@ -65,22 +71,25 @@ website:
         href: docs/blog/index.qmd
       - text: "Help"
         menu:
-          - text: "Report an Issue"
+          - text: "Report a Bug"
             icon: "bug"
             href: "https://github.com/quarto-dev/quarto-cli/issues"
-          - text: "Quarto Discussions"
+          - text: "Ask a Question"
             icon: "chat-right-text"
             href: "https://github.com/quarto-dev/quarto-cli/discussions"
           - text: "FAQ"
             icon: "question-circle"
             href: docs/faq/index.qmd
-    right:
+    tools:
       - icon: twitter
         href: https://twitter.com/quarto_pub
-        aria-label: Quarto Twitter
+        text: Quarto Twitter
       - icon: github
         href: https://github.com/quarto-dev/quarto-cli
-        aria-label: Quarto GitHub
+        text: Quarto GitHub
+      - icon: rss
+        href: https://quarto.org/docs/blog/index.xml
+        text: Quarto Blog RSS        
 
   sidebar:
     - id: get-started
@@ -108,6 +117,7 @@ website:
             - docs/authoring/figures.qmd
             - docs/authoring/tables.qmd
             - docs/authoring/diagrams.qmd
+            - docs/authoring/videos.qmd
             - docs/authoring/callouts.qmd
             - docs/authoring/article-layout.qmd
             - section: "Scholarly Writing"
@@ -128,17 +138,28 @@ website:
         - section: "Tools"
           contents:
             - docs/tools/jupyter-lab.qmd
-            - docs/tools/rstudio.qmd
-            - docs/tools/vscode.qmd
-            - docs/tools/text-editors.qmd
-            - section: "Visual Editor"
-              contents:
-                - text: Editor Basics
+            - section: "RStudio IDE"
+              contents: 
+                - text: "RStudio Basics"
+                  href: docs/tools/rstudio.qmd
+                - section: "Visual Editor"
                   href: docs/visual-editor/index.qmd
-                - docs/visual-editor/technical.qmd
-                - docs/visual-editor/content.qmd
-                - docs/visual-editor/options.qmd
-                - docs/visual-editor/markdown.qmd
+                  contents:
+                    - text: Editor Basics
+                      href: docs/visual-editor/index.qmd
+                    - docs/visual-editor/technical.qmd
+                    - docs/visual-editor/content.qmd
+                    - docs/visual-editor/options.qmd
+                    - docs/visual-editor/markdown.qmd
+            - section: "VS Code"
+              href: docs/tools/vscode.qmd
+              contents:
+                - text: "VS Code Basics"
+                  href: docs/tools/vscode.qmd
+                - text: "Visual Editor"
+                  href: docs/visual-editor/vscode/index.qmd
+            - docs/tools/neovim.qmd
+            - docs/tools/text-editors.qmd
         - section: "Documents"
           contents:
             - section: "HTML"
@@ -159,6 +180,7 @@ website:
               contents:
                 - docs/output-formats/gfm.qmd
                 - docs/output-formats/hugo.qmd
+                - docs/output-formats/docusaurus.qmd
             - docs/output-formats/all-formats.qmd
         - section: "Presentations"
           contents:
@@ -195,14 +217,6 @@ website:
             - docs/books/book-crossrefs.qmd
             - text: "Customizing Output"
               href: docs/books/book-output.qmd
-        - section: "Journal Articles"
-          href: docs/journals/index.qmd
-          contents:
-            - text: "Overview"
-              href: docs/journals/index.qmd
-            - docs/journals/formats.qmd
-            - docs/journals/templates.qmd
-            - docs/journals/authors.qmd
         - section: "Interactivity"
           contents:
             - text: "Overview"
@@ -269,16 +283,10 @@ website:
           contents:
             - docs/projects/quarto-projects.qmd
             - docs/projects/code-execution.qmd
-            - docs/projects/virtual-environments.qmd
+            - docs/projects/profiles.qmd
+            - docs/projects/environment.qmd
             - docs/projects/scripts.qmd
-        - section: "Extensions"
-          contents:
-            - docs/extensions/index.qmd
-            - docs/extensions/shortcodes.qmd
-            - docs/extensions/filters.qmd
-            - docs/extensions/formats.qmd
-            - docs/extensions/lua.qmd
-            - docs/extensions/distributing.qmd
+            - docs/projects/virtual-environments.qmd
         - section: "Advanced"
           contents:
             - docs/authoring/includes.qmd
@@ -287,6 +295,46 @@ website:
             - docs/authoring/language.qmd
             - docs/authoring/conditional.qmd
             - docs/extensions/nbfilter.qmd
+    - id: extensions
+      title: "Extensions"
+      contents:
+        - "---"
+        - section: docs/extensions/index.qmd
+          contents: 
+            - text: "Shortcodes & Filters"
+              href: docs/extensions/listing-filters.qmd
+            - text: "Journal Articles"
+              href: docs/extensions/listing-journals.qmd
+            - text: "Custom Formats"
+              href: docs/extensions/listing-formats.qmd
+            - text: "Revealjs Extensions"
+              href: docs/extensions/listing-revealjs.qmd
+            - docs/extensions/managing.qmd
+        - "---"
+        - section: docs/extensions/creating.qmd
+          contents:
+            - text: "Overview"
+              href: docs/extensions/creating.qmd
+            - docs/extensions/lua.qmd
+            - docs/extensions/lua-api.qmd
+            - text: "Distribution"
+              href: docs/extensions/distributing.qmd
+            - "---"
+            - text: "Shortcodes"
+              href: docs/extensions/shortcodes.qmd
+            - text: "Filters"
+              href: docs/extensions/filters.qmd
+            - section: "Journal Articles"
+              href: docs/journals/formats.qmd
+              contents:
+                - docs/journals/formats.qmd
+                - docs/journals/templates.qmd
+                - docs/journals/authors.qmd
+            - docs/extensions/formats.qmd
+            - docs/extensions/revealjs.qmd
+            - docs/extensions/project-types.qmd
+            - docs/extensions/starter-templates.qmd
+
     - id: reference
       title: "Reference"
       contents:
@@ -318,8 +366,6 @@ website:
                   href: docs/reference/formats/markdown/gfm.qmd
                 - text: "CommonMark"
                   href: docs/reference/formats/markdown/commonmark.qmd
-                - text: "Hugo"
-                  href: docs/reference/formats/markdown/hugo.qmd
                 - text: "Markua"
                   href: docs/reference/formats/markdown/markua.qmd
             - section: "Wikis"
@@ -396,6 +442,37 @@ website:
               href: docs/reference/globs.qmd
             - text: "Citations"
               href: docs/reference/metadata/citation.qmd
+    - id: prerelease
+      title: "Quarto 1.3"
+      contents:
+        - section: "Highlights"
+          href: docs/prerelease/1.3/index.qmd
+          contents:
+            - text: "Multi-Format"
+              href: docs/prerelease/1.3/multi-format.qmd
+            - text: "Cell Embedding"
+              href: docs/prerelease/1.3/embed.qmd
+            - text: "Grid Customization"
+              href: docs/prerelease/1.3/grid.qmd
+            - text: "Code Annotation"
+              href: docs/prerelease/1.3/code-annotation.qmd
+            - section: "Quarto AST"
+              href: docs/prerelease/1.3/ast.qmd
+              contents:
+                - text: Callouts
+                  href: docs/prerelease/1.3/custom-ast-nodes/callout.qmd
+                - text: Tabsets
+                  href: docs/prerelease/1.3/custom-ast-nodes/tabset.qmd
+                - text: Conditional Blocks
+                  href: docs/prerelease/1.3/custom-ast-nodes/conditional-block.qmd
+            - text: "Mermaid Theming"
+              href: docs/prerelease/1.3/mermaid.qmd
+            - text: "PDF Images"
+              href: docs/prerelease/1.3/pdf.qmd
+            - text: "`kbd` Shortcode"
+              href: docs/prerelease/1.3/kbd.qmd
+
+ 
 
 bibliography: references.bib
 
@@ -408,11 +485,20 @@ format:
     code-overflow: wrap
     css: styles.css
     include-after-body: js.html
+    grid:
+      sidebar-width: 250px
+      body-width: 900px
+      margin-width: 300px
+
 
 filters:
-  - filters/include-files.lua
-  - quarto
+  - filters/tools-tabset.lua
+
 
 freeze: true
 
 editor: visual
+
+profile:
+  group: 
+    - [prerelease,rc]

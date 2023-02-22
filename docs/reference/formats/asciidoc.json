@@ -18,6 +18,20 @@
       {
         "name": "abstract",
         "description": "Summary of document"
+      },
+      {
+        "name": "order",
+        "description": "Order for document when included in a website automatic sidebar menu."
+      }
+    ]
+  },
+  {
+    "name": "options",
+    "title": "Format Options",
+    "options": [
+      {
+        "name": "quarto-required",
+        "description": "A semver version range describing the supported quarto versions for this document\nor project.\n\nExamples:\n\n- `>= 1.1.0`: Require at least quarto version 1.1\n- `1.*`: Require any quarto versions whose major version number is 1\n"
       }
     ]
   },
@@ -248,7 +262,7 @@
       },
       {
         "name": "shortcodes",
-        "description": "Speicfy Lua scripts that implement shortcode handlers\n"
+        "description": "Specify Lua scripts that implement shortcode handlers\n"
       },
       {
         "name": "keep-md",
@@ -268,7 +282,7 @@
       },
       {
         "name": "resource-path",
-        "description": "List of paths to search for images and other resources. The paths should\nbe separated by : on Linux, UNIX, and macOS systems, and by ; on Windows.\n"
+        "description": "List of paths to search for images and other resources.\n"
       },
       {
         "name": "default-image-extension",

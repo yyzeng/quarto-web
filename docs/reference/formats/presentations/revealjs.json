@@ -22,6 +22,10 @@
       {
         "name": "institute",
         "description": "Author affiliations for the presentation."
+      },
+      {
+        "name": "order",
+        "description": "Order for document when included in a website automatic sidebar menu."
       }
     ]
   },
@@ -52,6 +56,10 @@
       {
         "name": "html-q-tags",
         "description": "Use `<q>` tags for quotes in HTML."
+      },
+      {
+        "name": "quarto-required",
+        "description": "A semver version range describing the supported quarto versions for this document\nor project.\n\nExamples:\n\n- `>= 1.1.0`: Require at least quarto version 1.1\n- `1.*`: Require any quarto versions whose major version number is 1\n"
       }
     ]
   },
@@ -120,6 +128,10 @@
         "description": "Additional attributes for the title slide of a reveal.js presentation as a map of \nattribute names and values. For example\n\n```yaml\n  title-slide-attributes:\n      data-background-image: /path/to/title_image.png\n      data-background-size: contain      \n```\n\n(Note that the data- prefix is required here, as it isn’t added automatically.)\n"
       },
       {
+        "name": "title-slide-style",
+        "description": "The title slide style. Use `pandoc` to select the Pandoc default title slide style."
+      },
+      {
         "name": "center-title-slide",
         "description": "Vertical centering of title slide"
       },
@@ -147,11 +159,11 @@
       },
       {
         "name": "scrollable",
-        "description": "Allow content that overflows slides vertically to scroll. This can also\nbe set per-slide by including the `.scrollable` class on the slide title.\n"
+        "description": "`true` to allow content that overflows slides vertically to scroll. This can also\nbe set per-slide by including the `.scrollable` class on the slide title.\n"
       },
       {
         "name": "smaller",
-        "description": "Use a smaller default font for slide content. This can also\nbe set per-slide by including the `.smaller` class on the slide title.\n"
+        "description": "`true` to use a smaller default font for slide content. This can also\nbe set per-slide by including the `.smaller` class on the slide title.\n"
       }
     ]
   },
@@ -773,8 +785,12 @@
         "description": "Produce output with an appropriate header and footer (e.g. a standalone HTML, LaTeX, TEI, or RTF file, not a fragment)\n"
       },
       {
+        "name": "embed-resources",
+        "description": "Produce a standalone HTML file with no external dependencies, using\n`data:` URIs to incorporate the contents of linked scripts, stylesheets,\nimages, and videos. The resulting file should be \"self-contained,\" in the\nsense that it needs no external files and no net access to be displayed\nproperly by a browser. This option works only with HTML output formats,\nincluding `html4`, `html5`, `html+lhs`, `html5+lhs`, `s5`, `slidy`,\n`slideous`, `dzslides`, and `revealjs`. Scripts, images, and stylesheets at\nabsolute URLs will be downloaded; those at relative URLs will be sought\nrelative to the working directory (if the first source\nfile is local) or relative to the base URL (if the first source\nfile is remote).  Elements with the attribute\n`data-external=\"1\"` will be left alone; the documents they\nlink to will not be incorporated in the document.\nLimitation: resources that are loaded dynamically through\nJavaScript cannot be incorporated; as a result, some\nadvanced features (e.g.  zoom or speaker notes) may not work\nin an offline \"self-contained\" `reveal.js` slide show.\n"
+      },
+      {
         "name": "self-contained",
-        "description": "Produce a standalone HTML file with no external dependencies, using\n`data:` URIs to incorporate the contents of linked scripts, stylesheets,\nimages, and videos. The resulting file should be\n\"self-contained,\" in the sense that it needs no external files and no net\naccess to be displayed properly by a browser. This option works only with\nHTML output formats, including `html4`, `html5`, `html+lhs`, `html5+lhs`,\n`s5`, `slidy`, `slideous`, `dzslides`, and `revealjs`. Scripts, images,\nand stylesheets at absolute URLs will be downloaded; those at relative\nURLs will be sought relative to the working directory (if the first source\nfile is local) or relative to the base URL (if the first source\nfile is remote).  Elements with the attribute\n`data-external=\"1\"` will be left alone; the documents they\nlink to will not be incorporated in the document.\n"
+        "description": "Produce a standalone HTML file with no external dependencies. Note that\nthis option has been deprecated in favor of `embed-resources`.\n"
       },
       {
         "name": "self-contained-math",
@@ -786,7 +802,7 @@
       },
       {
         "name": "shortcodes",
-        "description": "Speicfy Lua scripts that implement shortcode handlers\n"
+        "description": "Specify Lua scripts that implement shortcode handlers\n"
       },
       {
         "name": "keep-md",
@@ -806,7 +822,7 @@
       },
       {
         "name": "resource-path",
-        "description": "List of paths to search for images and other resources. The paths should\nbe separated by : on Linux, UNIX, and macOS systems, and by ; on Windows.\n"
+        "description": "List of paths to search for images and other resources.\n"
       },
       {
         "name": "default-image-extension",

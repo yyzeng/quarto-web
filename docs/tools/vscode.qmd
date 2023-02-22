@@ -19,9 +19,7 @@ The Quarto extension integrates directly with the Jupyter, R, and Julia extensio
 
 ![](/docs/computations/images/python-vscode.png){.border .preview-image fig-alt="Screen shot of VS Code editor with three vertical sections. The leftmost includes the file explorer, and quarto help. The second pane is the source code for a quarto file with python code. The third is interactive with Python running and output of the code cells shown."}
 
-### Installation
-
-You can install the Quarto extension from the [VS Code Extension Marketplace](https://marketplace.visualstudio.com/items?itemName=quarto.quarto), the [Open VSX Registry](https://open-vsx.org/extension/quarto/quarto) or directly from a [VISX extension file](https://github.com/quarto-dev/quarto-vscode#visx-install).
+You can install the Quarto extension from the [VS Code Extension Marketplace](https://marketplace.visualstudio.com/items?itemName=quarto.quarto) or the [Open VSX Registry](https://open-vsx.org/extension/quarto/quarto).
 
 ## Render and Preview
 
@@ -42,7 +40,7 @@ Additionally, there are commands available to render specific formats. Here is a
 -   Quarto: Render
 -   Quarto: Render HTML
 -   Quarto: Render PDF
--   Quarto: Render Word
+-   Quarto: Render DOCX
 
 The **Quarto: Render** command renders the default format of the currently active document. The other commands render specific formats (regardless of the document's default format). The <kbd>Ctrl+Shift+K</kbd> keyboard shortcut will re-execute the most recently executed render command.
 
@@ -50,7 +48,22 @@ The **Quarto: Render** command renders the default format of the currently activ
 Embedded preview is currently supported for HTML and PDF based formats (including `revealjs` and `beamer` slideshows). However, for Word and other formats you need to use an appropriate external program to preview the output.
 :::
 
-#### External Preview
+## Render on Save
+
+By default Quarto does not automatically render `.qmd` or `.ipynb` files when you save them. This is because rendering might be very time consuming (e.g. it could include long running computations) and it's good to have the option to save periodically without doing a full render.
+
+However, you can configure the Quarto extension to automatically render whenever you save. You can do this either within VS Code settings or within the YAML options for your project or document. To configure the VS Code setting, search for `quarto.render` in settings and you'll find the **Render on Save** option:
+
+![](images/vscode-render-on-save.png){.border fig-alt="The Visual Studio Code Quarto render settings. The Render on Save option is checked."}
+
+You might also want to control this behavior on a per-document or per-project basis. If you include the `editor: render-on-save` option in your document or project YAML it will supersede whatever your VS Code setting is. For example:
+
+``` yaml
+editor:
+  render-on-save: true
+```
+
+## External Preview
 
 If you prefer to use an external browser for preview (or have no preview triggered at all by rendering) you can use the **Preview Type** option to specify an alternate behavior:
 
@@ -88,8 +101,7 @@ Note that you can quickly insert a new code cell using the <kbd>Ctrl+Shift+I</kb
 
 ## Contextual Assistance
 
-Execute the **Quarto: Show Assist Panel** command to show a panel in the sidebar that shows contextual
-assistance depending on the current cursor location:
+Execute the **Quarto: Show Assist Panel** command to show a panel in the sidebar that shows contextual assistance depending on the current cursor location:
 
 1)  Help/documentation is shown when editing code
 2)  A realtime preview of equations is shown when editing LaTeX math
@@ -129,6 +141,14 @@ Code snippets are templates that make it easier to enter repeating code patterns
 
 ![](images/vscode-snippets.png){.border fig-alt="Quarto document with dropdown 'Select a snippet' dropdown, the first item (bold - insert bold text) is selected."}
 
+### IntelliSense
+
+VSCode uses IntelliSense to suggest snippets or possible values for a specific function while typing. This is turned off by default for snippets, but not for values. To enable snippet suggestions in IntelliSense while typing or when selecting a text snippet and pressing `ctrl+space`, the setting `editor.snippetSuggestions` needs to be set to a value other than `none` (for example to `inline`).
+
+-   Press `F1` and search for `Preferences: Open Settings (UI)` or `File` \> `Preferences` \> `Settings`
+-   Search for following term `@lang:quarto editor.snippetSuggestions`. `Editor: Snippet Suggestions` should show up.
+-   Change value to a not-`none` value.
+
 ## Document Navigation
 
 If you have a large document use the outline view for quick navigation between sections:
@@ -147,7 +167,7 @@ In addition to editing Quarto document as plain-text `.qmd` files, you can also 
 
 ### YAML Front Matter
 
-The first cell of your notebook should be a **Raw** cell that contains the document title, author, and any other options you need to specify. Note that you can switch the type of a call to **Raw** using the cell type menu at the bottom right of the cell:
+The first cell of your notebook should be a **Raw** cell that contains the document title, author, and any other options you need to specify. Note that you can switch the type of a cell to **Raw** using the cell type menu at the bottom right of the cell:
 
 ![](images/vscode-raw.png){.border fig-alt="The top section of an ipynb file open in VSCode. There is a Raw cell containing yaml front matter."}
 
@@ -173,9 +193,7 @@ There are many output options available, including options to optionally hide co
 
 ### Cell Execution
 
-``` include
-../computations/_jupyter-execute.md
-```
+{{< include ../computations/_jupyter-execute.md >}}
 
 There are many other execution options available (e.g. to control caching, optimizing kernel start-up time, etc.). Learn more about these options in [Execution Options](../computations/execution-options.qmd).
 
@@ -183,7 +201,7 @@ There are many other execution options available (e.g. to control caching, optim
 
 You can convert between .ipynb and .qmd representations of a notebook using the `quarto convert` command. For example:
 
-```{.bash filename="Terminal"}
+``` {.bash filename="Terminal"}
 quarto convert basics-jupyter.ipynb
 quarto convert basics-jupyter.qmd
 ```

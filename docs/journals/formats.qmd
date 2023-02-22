@@ -4,6 +4,8 @@ example-org: quarto-journals
 example-format: acm
 ---
 
+{{< include ../extensions/_extension-version.qmd >}}
+
 ## Overview
 
 This article provide a guide to creating your own custom Journal formats. As a supplement to this guide we also recommend the following learning resources:
@@ -41,21 +43,113 @@ Note that we moved the `toc` option to the top level since it is shared between 
 
 Custom formats can also be used with the `--to` argument to `quarto render`. For example:
 
-```{.bash filename="Terminal"}
+``` {.bash filename="Terminal"}
 quarto render document.qmd --to acm-pdf
 ```
 
-Below we'll walk through a complete example of a custom Journal format for the ACM. Before proceeding to the example we recommend you review these articles which cover some foundations that will be made use of in the example:
+## Quick Start
 
-- [Article Templates](templates.qmd) 
+Here we'll describe how to create a simple Journal article format extension. We'll use the `quarto create` command to do this. If you are using VS Code or RStudio you should execute `quarto create` within their repsective integrated Terminal panes. 
 
-- [Authors & Affiliations](authors.qmd) 
+To get started, execute `quarto create extension journal` within the parent directory where you'd like the format to be created:
+
+```{.bash filename="Terminal"}
+$ quarto create extension journal
+ ? Extension Name › aps
+```
+
+As shown above, you'll be prompted for an extension name. Type `aps` (an acronym for a fictional academic association) and press Enter---the Journal format extension is then created:
+
+```bash
+Creating extension at /Users/jjallaire/quarto/dev/aps:
+  - Created README.md
+  - Created template.qmd
+  - Created _extensions/aps/aps.lua
+  - Created _extensions/aps/styles.css
+  - Created _extensions/aps/_extension.yml
+  - Created _extensions/aps/header.tex
+  - Created bibliography.bib
+```
+
+If you are running within VS Code or RStudio a new window will open with the extension project. 
+
+Here's what the contents of the files in `_extensions/aps/` look like:
+
+``` {.yaml filename="_extensions/aps/_extension.yml"}
+title: Aps
+author: J.J. Allaire
+version: 1.0.0
+quarto-required: ">=1.2.222"
+contributes:
+  formats:
+    common:
+      toc: true
+      filters:
+        - aps.lua
+    pdf:
+      include-in-header: header.tex
+    html:
+      css: styles.css
+```
+
+The main `_extension.yml` config file defines the output formats available for this Journal. Here we defined `pdf` and `html` formats, which will be available to Quarto documents as `aps-pdf` and `aps-html`, respectively.
+
+The config file also points to a number of other files that are used to customize the appearance of the Journal article:
+
+- `header.tex` --- Custom LaTeX header directives
+
+- `styles.css` --- Custom CSS for HTML output
+
+- `aps.lua` --- Lua filter for varoius custom transformations
+
+Finally, the `template.qmd` provides a base example article for users of the format:
+
+``` {.markdown filename="template.qmd"}
+---
+title: Aps Template
+format:
+  aps-pdf:
+    keep-tex: true  
+  aps-html: default
+author:
+  - name: Sarah Malloc
+    affiliations:
+      - name: An Organization
+        department: The Department
+        address: 1 Main St
+        city: Boston
+        country: USA
+        postal-code: 02210-1022
+      - A second affilication
+    orcid: 0000-0000-0000-0000
+    email: sm@example.org
+    url: https://example.org/
+  - name: Eliza Dealloc
+    affiliations:
+      - Another Affiliation
+abstract: |
+  This document is a template demonstrating the Aps format.
+keywords: [template, demo]
+bibliography: bibliography.bib  
+---
+
+## Introduction {#sec-intro}
+
+*TODO* Create a template that demonstrates the appearance, formatting, layout, and functionality of your format. Learn more about journal formats at <https://quarto.org/docs/journals/>.
+```
+
+To develop your format, render/preview `template.qmd`, and then make changes to the various files in the `_extensions` directory (the preview will automatically refresh when you change these files).
 
 
 ## Example: ACM Format
 
-To demonstrate the basics, we'll walk through some of the code for the [ACM Format](https://github.com/quarto-journals/) available from [quarto-journals](https://github.com/quarto-journals/).
+The Quick Start above creates a very simple Journal article format. Here we'll walk through some of the code for a more complex example, the [ACM Format](https://github.com/quarto-journals/) available from [quarto-journals](https://github.com/quarto-journals/).
 
+Before proceeding to the example we recommend you review these articles which cover some foundations that will be made use of in the example:
+
+-   [Article Templates](templates.qmd)
+
+-   [Authors & Affiliations](authors.qmd)
 
 ### Format Components
 
@@ -101,6 +195,7 @@ Here's what the contents of `_extension.yml` look like:
 title: ACM Journal Format
 author: Charles Teague
 version: 0.1.0
+quarto-required: ">=1.2.0"
 contributes:
   format:
     common:
@@ -124,7 +219,7 @@ Now let's return to the files outside of the `_extensions` directory. The `LICEN
 
 For any custom format that includes a `template.qmd`, users can get started with the format with a command like this:
 
-```{.bash filename="Terminal"}
+``` {.bash filename="Terminal"}
 quarto use template quarto-journals/acm
 ```
 
@@ -154,14 +249,11 @@ The files included within the ACM template are:
 
 -   `bibliography.bib` is a sample bibliography referenced by `template.qmd`
 
-Note that the schema for author information used here is relatively straightforward. See the article on  [Authors & Affiliations](authors.qmd) to learn about more sophisticated schemas for author information.
+Note that the schema for author information used here is relatively straightforward. See the article on [Authors & Affiliations](authors.qmd) to learn about more sophisticated schemas for author information.
 
 You can also include other files alongside `template.qmd` and they will be copied as well. Note that by default, Quarto will exclude common Github repository files when copying an extension template. This includes any file name or directory starting with a `.` (e.g. `.gitignore`), `README.md`, `LICENSE`, etc.. If you'd like, you can place a `.quartoignore` file in the root of your repository with each line of the file being a glob describing file(s) to ignore (using syntax like a `.gitignore` file).
 
-
-
 {{< include ../extensions/_formats-common.qmd >}}
-
 
 ## Learning More
 
@@ -171,13 +263,6 @@ Here are some additional learning resources you may find valuable:
 
 -   The [GitHub template repository](https://github.com/quarto-journals/article-format-template) for creating new Journal formats. The code in the template repository is heavily annotated so creating a new repository using this template and experimenting with it is an excellent way to learn.
 
-- In depth treatment of creating [Article Templates](templates.qmd) for Journals (including how to use partials to compose templates)
+-   In depth treatment of creating [Article Templates](templates.qmd) for Journals (including how to use partials to compose templates)
 
-- Review of the schema and options for expressing and rendering [Authors & Affiliations](authors.qmd).
-
-
-
-
-
-
-
+-   Review of the schema and options for expressing and rendering [Authors & Affiliations](authors.qmd).

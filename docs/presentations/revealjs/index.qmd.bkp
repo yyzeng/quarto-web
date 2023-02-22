@@ -19,12 +19,14 @@ If you prefer to view the demo in a standalone browser you can do that [here](de
 
 See the Revealjs [format reference](../../reference/formats/presentations/revealjs.qmd) for a comprehensive overview of all options supported for Revealjs output.
 
-``` include
-../_creating-slides-reveal.md
-../_incremental-lists-reveal.md
-../_incremental-pause-reveal.md
-../_columns-reveal.md
-```
+{{< include ../_creating-slides-reveal.md >}}
+
+{{< include ../_incremental-lists-reveal.md >}}
+
+{{< include ../_incremental-pause-reveal.md >}}
+
+{{< include ../_columns-reveal.md >}}
+
 
 ## Content Overflow
 
@@ -53,9 +55,8 @@ format:
 ---
 ```
 
-``` include
-../_speaker-notes.md
-```
+{{< include ../_speaker-notes.md >}}
+
 
 Press the <kbd>S</kbd> key (or use the [Navigation Menu](presenting.qmd#navigation-menu)) to show the presentation speaker view:
 
@@ -65,9 +66,8 @@ You'll typically use this view on one screen (e.g. your laptop) while presenting
 
 ## Themes
 
-``` include
-_theme-basics.md
-```
+{{< include _theme-basics.md >}}
+
 
 See the article on [Reveal Themes](themes.qmd) for additional details on customizing themes and creating brand new themes of your own.
 
@@ -200,8 +200,7 @@ plt.show()
 You can use this same option within an executable code cell by using the `code-line-numbers` cell options:
 
 ```` {.java code-preview="examples/line-highlighting-4.qmd"}
-```{.python}
-#| echo: fenced
+```{{python}}
 #| code-line-numbers: "|6|9"
 
 import numpy as np
@@ -344,21 +343,8 @@ Since this image has a dark background and our slides use the default (light) th
 
 Automatically plays a full size video behind the slide.
 
-| **Attribute**            | **Default** | **Description**                                                                         |
-|:-------------------------|:------------|:----------------------------------------------------------------------------------------|
-| `background-video`       |             | A single video source, or a comma separated list of video sources.                      |
-| `background-video-loop`  | false       | Flags if the video should play repeatedly.                                              |
-| `background-video-muted` | false       | Flags if the audio should be muted.                                                     |
-| `background-size`        | cover       | Use `cover` for full screen and some cropping or `contain` for letterboxing.            |
-| `background-opacity`     | 1           | Opacity of the background video on a 0-1 scale. 0 is transparent and 1 is fully opaque. |
 
-For example:
-
-``` markdown
-## Slide Title {background-video="video.mp4" background-video-loop="true" background-video-muted="true"}
-
-This slides's background video will play in a loop with audio muted.
-```
+{{< include _background-video.md >}}
 
 ### IFrame Backgrounds
 
@@ -387,6 +373,25 @@ You can always omit the title text, and specify only the slide background inform
 ## {background-color="black" background-image="https://placekitten.com/100/100" background-size="100px" background-repeat="repeat"}
 
 (Another slide with no title)
+```
+
+### Main Title Slide Background
+
+The main title slide is the first slide, which is generated via document YAML options. As a result, the methods described above won't work for providing a background for the title slide. Rather, you need to do the following:
+
+1. Provide the title slide background options under `title-slide-attributes`
+2. Prepend the background options with `data-`
+
+For example:
+
+```yaml
+---
+title: My Slide Show
+title-slide-attributes:
+    data-background-image: /path/to/title_image.png
+    data-background-size: contain
+    data-background-opacity: "0.5"
+---
 ```
 
 ## Learning More

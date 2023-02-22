@@ -59,8 +59,8 @@ dat <- data.frame(cond = rep(c("A", "B"), each=10),
                   yvar = 1:20 + rnorm(20,sd=3))
 
 ggplot(dat, aes(x=xvar, y=yvar)) +
-    geom_point(shape=1) + 
-    geom_smooth() 
+  geom_point(shape=1) + 
+  geom_smooth() 
 ```
 
 Here we specify both `code-fold: true` as well as custom summary text (the default is just "Code" as shown above):
@@ -102,7 +102,7 @@ format:
 Valid values for `code-overflow` are:
 
 | Option   | Description                                                                                  |
-|----------|----------------------------------------------------------------------------------------------|
+|------------------|------------------------------------------------------|
 | `scroll` | Scroll code blocks that exceed available width (default, corresponds to `white-space: pre`). |
 | `wrap`   | Wrap lines of code that exceed available width (corresponds to `white-space: pre-wrap`).     |
 
@@ -201,18 +201,39 @@ code-block-border-left: "#31BAE9"
 
 ![](images/code-custom.png){fig-alt="A block of code with a gray background and a blue vertical stripe running along its left border."}
 
+## Code Filename
+
+::: callout-note
+Code filenames are a new feature of [Quarto v1.1](https://quarto.org/docs/download/) so please be sure you've installed that version before attempting to use them.
+:::
+
+Use the `filename` attribute on code blocks If you are documenting the contents of a file and want to be especially clear about the name of the file the code is associated with.
+
+For example, the following code:
+
+```` markdown
+```{.python filename="matplotlib.py"}
+import matplotlib.pyplot as plt
+plt.plot([1,23,2,4])
+plt.show()
+```
+````
+
+Results in this HTML output:
+
+![](images/code-filename.png)
+
+Non-HTML formats will still have the filename, but it will simply be shown in bold above the code block.
+
 ## Highlighting
 
 Pandoc will automatically highlight syntax in [fenced code blocks](https://pandoc.org/MANUAL.html#fenced-code-blocks) that are marked with a language name. For example:
 
-````
-```python
-1 + 1
-```
-````
+    ```python
+    1 + 1
+    ```
 
 Pandoc can provide syntax highlighting for over 140 different languages (see the output of `quarto pandoc --list-highlight-languages` for a list of all of them). If you want to provide the appearance of a highlighted code block for a language not supported, just use `default` as the language name.
-
 
 You can specify the code highlighting style using `highlight-style` and specifying one of the supported themes. These themes are "adaptive", which means they will automatically switch between a dark and light mode based upon the theme of the website. These are designed to work well with sites that include a dark and light mode.
 
@@ -297,6 +318,41 @@ highlight-style:
 ```
 
 Note that as with adaptive text higlighting themes, when you provide a dark and light `highlight-style`, background colors specified in the themes will be ignored in favor of the overall theme specified background colors.
+
+## Line Numbers
+
+If you want to display line numbers alongside the code block, add the `code-line-numbers` option. For example:
+
+``` yaml
+format:
+  html:
+    code-line-numbers: true
+```
+
+Here's how a code block with line numbers would display:
+
+``` {.python code-line-numbers="true"}
+import matplotlib.pyplot as plt
+plt.plot([1,23,2,4])
+plt.show()
+```
+
+You can also enable line numbers for an individual code block using the `code-line-numbers` attribute. For example:
+
+```` python
+``` {.python code-line-numbers="true"}
+import matplotlib.pyplot as plt
+plt.plot([1,23,2,4])
+plt.show()
+```
+````
+
+## Executable Blocks
+
+The documentation on [computations](/docs/get-started/computations/) covers how to include executable code blocks (code which is actually executed, with its output being included in the rendered document). We won't additionally cover that here, but we will talk about how to include code blocks that demonstrate executable syntax (e.g. for writing a tutorial).
+
+
+{{< include ../computations/_unexecuted-blocks.md >}}
 
 ## Copy Button
 

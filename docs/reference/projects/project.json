@@ -1,5 +1,9 @@
 [
   {
+    "name": "title",
+    "description": ""
+  },
+  {
     "name": "type",
     "description": "Project type (`default`, `website`, or `book`)"
   },
@@ -26,5 +30,13 @@
   {
     "name": "preview",
     "description": "Options for `quarto preview` (see [Preview](#preview))"
+  },
+  {
+    "name": "pre-render",
+    "description": "Scripts to run as a pre-render step"
+  },
+  {
+    "name": "post-render",
+    "description": "Scripts to run as a post-render step"
   }
 ]

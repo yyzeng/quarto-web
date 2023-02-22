@@ -33,6 +33,9 @@ async function run() {
     // Release metadata
     releaseInfo.version = releaseRaw.tag_name.slice(1);
     releaseInfo.name = releaseRaw.name;
+    releaseInfo.created = releaseRaw.created_at;
+    releaseInfo.updated = releaseRaw.updated_at;
+    releaseInfo.published = releaseRaw.published_at;
 
     // Release assets
     releaseInfo.assets = [];
@@ -42,6 +45,12 @@ async function run() {
       const assetFile = await fetch(asset.browser_download_url);
       const buffer = await assetFile.buffer();
       const checksum = hasha(buffer, { algorithm });
+      
+      if (asset.name === 'changelog.md') {
+        var decoder = new TextDecoder("utf-8");
+        
+        releaseInfo.description = decoder.decode(buffer);
+      }
 
       console.log(asset.name);
       const parts = asset.name.split("-");
@@ -139,12 +148,20 @@ async function run() {
   const releaseProcessed = await processRelease(latestRelease.data);
   const redirects = releaseProcessed.redirects;
   const releaseInfo = releaseProcessed.releaseInfo;
+  if (releaseInfo.assets === undefined || releaseInfo.assets.length === 0) {
+    throw new Error("Error generating downloads - an empty release was detected.");
+  }
   
+
   // Process the latest pre-release
   console.log("Starting prelease");
   const prerelease = await getPrerelease();
   const prereleaseProcessed = await processRelease(prerelease);
   const prereleaseInfo = prereleaseProcessed.releaseInfo;
+  if (prereleaseInfo.assets === undefined || prereleaseInfo.assets.length === 0) {
+    throw new Error("Error generating downloads - an empty pre-release was detected.");
+  }
+
 
   // Note the prerelease data as a test
   console.log(prereleaseProcessed);

@@ -5,7 +5,7 @@
   },
   {
     "name": "type",
-    "description": "The type of listing to create. Choose one of:\n\n- `default`: A blog style list of items\n- `table`: A table of items\n- `grid`: A grid of item cards\n"
+    "description": "The type of listing to create. Choose one of:\n\n- `default`: A blog style list of items\n- `table`: A table of items\n- `grid`: A grid of item cards\n- `custom`: A custom template, provided by the `template` field\n"
   },
   {
     "name": "contents",
@@ -82,6 +82,10 @@
   {
     "name": "template",
     "description": "The path to a custom listing template.\n"
+  },
+  {
+    "name": "template-params",
+    "description": "Parameters that are passed to the custom template."
   },
   {
     "name": "fields",

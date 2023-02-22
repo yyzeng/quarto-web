@@ -22,11 +22,18 @@ See @fig-penginus-by-island for a breakdown by island.
 
 References made this way will be automatically resolved across chapters (including the requisite chapter number in the reference).
 
-To make a chapter or section reference-able, you add a `#sec` id to its main heading. For example:
+To make a chapter or section reference-able, you add a `#sec` prefix to its main heading. For example:
 
 ``` markdown
 # Introduction {#sec-introduction}
 ```
+
+::: callout-important
+## Label Prefix
+
+In order for a chapter to be cross-referenceable, its label must start with the `sec-` prefix.
+:::
+
 
 To refer to a section, include a cross-reference to it using an `@` identifier as we did above in the figure example:
 
@@ -46,7 +53,7 @@ See [Chapter -@sec-visualization] for more details on visualizing model diagnost
 By default, all headings in your document create a numbered section. You customize numbering depth using the `number-depth` option. For example, to only number sections immediately below the chapter level, use this:
 
 ``` yaml
-number-depth: 1
+number-depth: 2
 ```
 
 Note that `toc-depth` is independent of `number-depth` (i.e. you can have unnumbered entries in the TOC if they are masked out from numbering by `number-depth`).

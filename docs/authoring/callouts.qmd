@@ -48,18 +48,18 @@ This is an example of a 'collapsed' caution callout that can be expanded by the 
 Create callouts in markdown using the following syntax (note that the first markdown heading used within the callout is used as the callout heading):
 
 ``` markdown
-:::{.callout-note}
+::: {.callout-note}
 Note that there are five types of callouts, including:
 `note`, `warning`, `important`, `tip`, and `caution`.
 :::
 
-:::{.callout-tip}
+::: {.callout-tip}
 ## Tip With Caption
 
 This is an example of a callout with a caption.
 :::
 
-:::{.callout-caution collapse="true"}
+::: {.callout-caution collapse="true"}
 ## Expand To Learn About Collapse
 
 This is an example of a 'folded' caution callout that can be expanded by the user. You can use `collapse="true"` to collapse it by default or `collapse="false"` to make a collapsible callout that is expanded by default.
@@ -105,7 +105,7 @@ which appears as:
 ::: {.callout-note appearance="simple"}
 ## Pay Attention
 
-Using callouts is an effect way to highlight content that your reader give special consideration or attention.
+Using callouts is an effective way to highlight content that your reader give special consideration or attention.
 :::
 
 ### Icons
@@ -113,7 +113,7 @@ Using callouts is an effect way to highlight content that your reader give speci
 In addition to controlling the appearance of the callout, you can also choose to directly suppress the icon by setting the global option in your document (or project) yaml:
 
 ``` yaml
-callout-icon: false;
+callout-icon: false
 ```
 
 or by setting an attribute directly on the callout:

@@ -1,23 +1,26 @@
 ---
 title: RStudio IDE
-description: | 
-  Use RStudio to work with Quarto documents that use either the 
-  Knitr or Jupyter engine.
 ---
 
 ## Overview
 
-``` include
-_rstudio.md
-```
+{{< include _rstudio.md >}}
+
+
+## Visual Editor
+
+RStudio IDE includes a visual editor for Quarto markdown, including support for tables, citations, cross-references, footnotes, divs/spans, definition lists, attributes, raw HTML/TeX, and more:
+
+[![](../visual-editor/images/visual-editing.png){fig-alt="An RMarkdown file opened in the RStudio visual editor. The page is titled 'Filter joins'. Underneath is a table containing R syntax, mathematical notation, and definitions for the semi- and anti-joins. Underneath this table is an R code chunk that displays a graphical representation of a semi-join."}](../visual-editor/index.qmd)
+
+To learn more, see the documentation on [Using the Visual Editor](../visual-editor/index.qmd) with RStudio.
 
 ## Knitr Engine
 
 Quarto is designed to be highly compatible with existing [R Markdown](https://rmarkdown.rstudio.com/) documents. You should generally be able to use Quarto to render any existing Rmd document without changes.
 
-``` include
-_chunk-options.md
-```
+{{< include _chunk-options.md >}}
+
 
 ## Jupyter Engine
 
@@ -33,7 +36,7 @@ jupyter: python3
 
 If you want to work within a virtual environment ([venv](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/#creating-a-virtual-environment)), use the **File :** **New Project...** command, specify the **Jupyter** engine with a venv, and specify which packages you'd like to seed the venv with:
 
-![](images/rstudio-new-project.png){width="552" fig-alt="A section of the 'New Project Wizard' menu from Rstudio. This section is titled 'Create Quarto Project'. The Quarto logo is displayed on the left. ON the right are fields for 'Type', 'Directory name', and 'Create project as subdirectory of:'. Underneath that are options for 'Engine' and 'Kernel'. The option for 'Engine' is set to 'Jupyter,' and the option for 'Kernel' is set to 'Python 3'. Underneath these are options for 'Create a git repository', and 'Use venv with this project'. The button for 'Use venv...' is selected, and there is a text box to the right with the Python package names 'matplotlib' and 'pandas' filled in. There are buttons for 'Create Project' and 'Cancel' arranged side-by-side in the bottom right of the window. There is an option to 'Open in new session' in the button left corner."}
+![](images/rstudio-new-jupyter-project.png){fig-alt="A section of the 'New Project Wizard' menu from Rstudio. This section is titled 'Create Quarto Project'. The Quarto logo is displayed on the left. ON the right are fields for 'Type', 'Directory name', and 'Create project as subdirectory of:'. Underneath that are options for 'Engine' and 'Kernel'. The option for 'Engine' is set to 'Jupyter,' and the option for 'Kernel' is set to 'Python 3'. Underneath these are options for 'Create a git repository', and 'Use venv with this project'. The button for 'Use venv...' is selected, and there is a text box to the right with the Python package names 'matplotlib' and 'pandas' filled in. There are buttons for 'Create Project' and 'Cancel' arranged side-by-side in the bottom right of the window. There is an option to 'Open in new session' in the button left corner."}
 
 RStudio will automatically activate this virtual environment whenever you open the project. You can install additional Python packages into the environment using the RStudio **Terminal** tab. For example:
 
@@ -64,6 +67,13 @@ Then, to render a document:
 ``` r
 library(quarto)
 quarto_render("document.qmd")
+```
+
+To render a website (ie; all qmd in a directory organized as a website):
+
+``` r
+library(quarto)
+quarto_render()
 ```
 
 To live preview (automatically render & refresh the browser on save) for a document you are working on, use the `quarto_preview()` function:

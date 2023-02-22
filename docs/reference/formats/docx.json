@@ -14,6 +14,10 @@
       {
         "name": "author",
         "description": "Author or authors of the document"
+      },
+      {
+        "name": "order",
+        "description": "Order for document when included in a website automatic sidebar menu."
       }
     ]
   },
@@ -24,6 +28,10 @@
       {
         "name": "reference-doc",
         "description": "Use the specified file as a style reference in producing a docx, \npptx, or odt file.\n"
+      },
+      {
+        "name": "quarto-required",
+        "description": "A semver version range describing the supported quarto versions for this document\nor project.\n\nExamples:\n\n- `>= 1.1.0`: Require at least quarto version 1.1\n- `1.*`: Require any quarto versions whose major version number is 1\n"
       }
     ]
   },
@@ -81,10 +89,6 @@
     "name": "code",
     "title": "Code",
     "options": [
-      {
-        "name": "code-line-numbers",
-        "description": "Include line numbers in code block output (`true` or `false`).\n\nFor revealjs output only, you can also specify a string to highlight\nspecific lines (and/or animate between sets of highlighted lines).\n\n* Sets of lines are denoted with commas:\n  * `3,4,5`\n  * `1,10,12`\n* Ranges can be denoted with dashes and combined with commas:\n  * `1-3,5` \n  * `5-10,12,14`\n* Finally, animation steps are separated by `|`:\n  * `1-3|1-3,5` first shows `1-3`, then `1-3,5`\n  * `|5|5-10,12` first shows no numbering, then 5, then lines 5-10\n    and 12\n"
-      },
       {
         "name": "highlight-style",
         "description": "Specifies the coloring style to be used in highlighted source code.\n\nInstead of a *STYLE* name, a JSON file with extension\n` .theme` may be supplied.  This will be parsed as a KDE\nsyntax highlighting theme and (if valid) used as the\nhighlighting style.\n"
@@ -286,7 +290,7 @@
       },
       {
         "name": "shortcodes",
-        "description": "Speicfy Lua scripts that implement shortcode handlers\n"
+        "description": "Specify Lua scripts that implement shortcode handlers\n"
       },
       {
         "name": "keep-md",
@@ -306,7 +310,7 @@
       },
       {
         "name": "resource-path",
-        "description": "List of paths to search for images and other resources. The paths should\nbe separated by : on Linux, UNIX, and macOS systems, and by ; on Windows.\n"
+        "description": "List of paths to search for images and other resources.\n"
       },
       {
         "name": "default-image-extension",

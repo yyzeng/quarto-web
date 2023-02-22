@@ -11,7 +11,7 @@ Quarto extensions are conceptually very simple though powerful. An extension is 
 
 Extensions are structured on the file system as follows:
 
-```{.bash filename="Terminal"}
+``` {.bash filename="Terminal"}
 # Extension root folder
 _extensions/<organization-name>/<extension-name>/
 
@@ -30,14 +30,18 @@ Extensions can be hosted and distributed as tarballs via URL, but the easiest wa
 
 The extension folder is
 
-```{.bash filename="Terminal"}
+``` {.bash filename="Terminal"}
 # The extension root folder
 _extensions/quarto-ext/fontawesome/
 ```
 
-and the command to install, update, or remove this extension is:
+and the command to add, update, or remove this extension is:
 
-`quarto install extension quarto-ext/fontawesome`
+``` {.bash filename="Terminal"}
+quarto add quarto-ext/fontawesome
+quarto update quarto-ext/fontawesome
+quarto remove quarto-ext/fontawesome
+```
 
 ## Extension Metadata
 
@@ -54,6 +58,10 @@ Each extension is defined by its `_extension.yml` file which contains the metada
 `version`
 
 :   A semantic version number this release. When installing, updating, or releasing an extension, this version number will be used to present a summary of actions to the user.
+
+`quarto-required`
+
+:   A semantic version number indicating the minimum version of quarto required to run this extension.
 
 `contributes`
 
@@ -153,11 +161,11 @@ It is often convenient to include the functionality from an extension in another
 
 For example, running the following command from the the directory which contains your `_extensions` directory:
 
-```{.bash filename="Terminal"}
-$ quarto install extension quarto-ext/fancy-text --embed quarto-journals/jss
+``` {.bash filename="Terminal"}
+$ quarto add quarto-ext/fancy-text --embed quarto-journals/jss
 ```
 
-Will install the `quarto-ext/fancy-text` extension into the `quarto-journals/jss` extension in the `_extensions` folder. Once you have installed the embedded extension, you can simply refer to it using its name under the `filters` or `shortcodes` keys in the relevant formats.
+Will add the `quarto-ext/fancy-text` extension into the `quarto-journals/jss` extension in the `_extensions` folder. Once you have added the embedded extension, you can simply refer to it using its name under the `filters` or `shortcodes` keys in the relevant formats.
 
 ### Complete Example YML
 
@@ -208,13 +216,13 @@ contributes:
 
 The above could be rendered using:
 
-```{.bash filename="Terminal"}
+``` {.bash filename="Terminal"}
 $ quarto render my-article.qmd --to jss-pdf
 ```
 
 Note that the command
 
-```{.bash filename="Terminal"}
+``` {.bash filename="Terminal"}
 $ quarto render my-article.qmd --to pdf
 ```
 

@@ -59,8 +59,8 @@ Here's a Knitr example with some of these additional options included:
 
     library(ggplot2)
     ggplot(airquality, aes(Temp, Ozone)) + 
-            geom_point() + 
-            geom_smooth(method = "loess", se = FALSE)
+      geom_point() + 
+      geom_smooth(method = "loess", se = FALSE)
     ```
 
     ```{{r}}
@@ -112,6 +112,10 @@ How do these sizes make their way into the engine-level defaults for generating 
 
     If you are using another graphics library with Jupyter and want to utilize these values, you can read them from `QUARTO_FIG_WIDTH` and `QUARTO_FIG_HEIGHT` environment variables.
 
+::: callout-caution
+When using the Knitr engine, `fig-width` and `fig-height` are supported on a per-cell basis. But when using the Jupyter engine, these options only have an effect if specified at the document- or project-level metadata.
+:::
+
 ### Caption and Alt Text
 
 You can specify the caption and alt text for figures generated from code using the `fig-cap` and `fig-alt` options. For example, here we add these options to a Python code cell that creates a plot:
@@ -134,7 +138,7 @@ plt.show()
 
 ## Inline Code
 
-Both Jupyter and Knitr support executing inline code within markdown (e.g. to allow narrative to automatically use the most up to date computations). The syntax for this varies across the engines.
+Jupyter, Knitr and OJS all support executing inline code within markdown (e.g. to allow narrative to automatically use the most up to date computations). The syntax for this varies across the engines.
 
 ### Jupyter
 
@@ -170,6 +174,16 @@ To include executable expressions within markdown for Knitr, enclose the express
 ## Circle
 
 The radius of the circle is `r radius`.
+```
+
+### OJS
+
+To include reactive OJS expressions within markdown, use the syntax `${expr}`. For example, if we have a reactive called `radius` we can use it within markdown as follows:
+
+``` markdown
+## Circle
+
+The radius of the circle is ${radius}
 ```
 
 ## Raw Output
@@ -230,9 +244,7 @@ display(Markdown("# Heading 1\n"))
 display(Markdown("## Heading 2\n"))
 ```
 
-``` include
-_knitr-options.md
-```
+{{< include _knitr-options.md >}}
 
 ## Intermediates
 
@@ -306,34 +318,7 @@ execute:
 
 #### Unexecuted Blocks
 
-Often you'll want to include a fenced code block purely as documentation (not executable). You can do this by using two curly braces around the language (e.g. `python`, `r`, etc.) rather than one. For example:
-
-``` {{{python}}}
-1 + 1
-```
-
-Will be output into the document as:
-
-``` {{python}}
-1 + 1
-```
-
-If you want to show an example with multiple code blocks and other markdown, just enclose the entire example in 4 backticks (e.g. ````` ```` `````) and use the two curly brace syntax for code blocks within. For example:
-
-    ````
-    ---
-    title: "My document"
-    ---
-
-    Some markdown content.
-
-    ```{{{python}}}
-    1 + 1
-    ```
-
-    Some additional markdown content.
-
-    ````
+{{< include _unexecuted-blocks.md >}}
 
 ## Engine Binding
 
@@ -341,21 +326,21 @@ Earlier we said that the engine used for computations was determined automatical
 
 Here are the basic rules for automatic binding:
 
-+-----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| Extension | Engine Binding                                                                                                                                                                                     |
-+===========+====================================================================================================================================================================================================+
-| .qmd      | Use Knitr engine if an `{r}` code block is discovered within the file                                                                                                                              |
-|           |                                                                                                                                                                                                    |
-|           | Use Jupyter engine if an executable code block (e.g. `{python}`) is discovered within the file. The kernel used is determined based on the language of the first executable code block discovered. |
-|           |                                                                                                                                                                                                    |
-|           | Use no engine if no executable code blocks are discovered.                                                                                                                                         |
-+-----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| .ipynb    | Jupyter engine                                                                                                                                                                                     |
-+-----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| .Rmd      | Knitr engine                                                                                                                                                                                       |
-+-----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| .md       | No engine                                                                                                                                                                                          |
-+-----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
++-----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Extension | Engine Binding                                                                                                                                                                                                                         |
++===========+========================================================================================================================================================================================================================================+
+| .qmd      | Use Knitr engine if an `{r}` code block is discovered within the file                                                                                                                                                                  |
+|           |                                                                                                                                                                                                                                        |
+|           | Use Jupyter engine if *any other* executable code block (e.g. `{python}`, `{julia}`, `{bash}`, etc.) is discovered within the file. The kernel used is determined based on the language of the first executable code block discovered. |
+|           |                                                                                                                                                                                                                                        |
+|           | Use no engine if no executable code blocks are discovered.                                                                                                                                                                             |
++-----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| .ipynb    | Jupyter engine                                                                                                                                                                                                                         |
++-----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| .Rmd      | Knitr engine                                                                                                                                                                                                                           |
++-----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| .md       | No engine (note that if an `md` document does contain executable code blocks then an error will occur)                                                                                                                                 |
++-----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 You can override the engine used via the `engine` option. For example:
 
@@ -394,3 +379,37 @@ jupyter:
     language: python
     name: python3
 ```
+
+## Shell Commands
+
+Using shell commands (from Bash, Zsh, etc.) within Quarto computational documents differs by engine. If you are using the Jupyter engine you can use [Jupyter shell magics](https://jakevdp.github.io/PythonDataScienceHandbook/01.05-ipython-and-shell-commands.html). For example:
+
+
+
+````markdown
+---
+title: "Using Bash"
+engine: jupyter
+---
+
+```{{python}}
+!echo "foo"
+```
+````
+
+Note that `!` preceding `echo` is what enables a Python cell to be able to execute a shell command.
+
+If you are using the Knitr engine you can use ```` ```{bash} ```` cells, for example:
+
+```` markdown
+---
+title: "Using Bash"
+engine: knitr
+---
+
+```{{bash}}
+echo "foo" 
+```
+````
+
+Note that the Knitr engine also supports ```` ```{python} ```` cells, enabling the combination of R, Python, and Bash in the same document

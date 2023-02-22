@@ -39,13 +39,13 @@ h1, h2, h3, h4, h5, h6 {
 
 We've merged Bootswatch themes for Bootstrap 5 into this single file theme format in our repo here:
 
-<https://github.com/twbs/bootstrap/blob/main/scss/_variables.scss>
+<https://github.com/quarto-dev/quarto-cli/tree/main/src/resources/formats/html/bootstrap/themes>
 
 From time to time, as the Bootswatch themes are updated, we will update these merged theme files.
 
 ## Bootstrap / Bootswatch Layering
 
-When using the Quarto HTML format, we allow the user to specify theme information in the document front matter (or project YAML). The theme information consists of a list of one more of
+When using the Quarto HTML format, we allow the user to specify theme information in the document front matter (or project YAML). The theme information consists of a list of one or more of
 
 -   A valid built in Bootswatch theme name
 

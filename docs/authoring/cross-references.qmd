@@ -5,7 +5,7 @@ format: html
 
 ## Overview
 
-Cross-references make it easier for readers to navigate your document by providing numbered references and hyperlinks to various entities like figures and tables. Every cross-referenceable entity requires a label (unique identifier) and caption (description). For example, this is a cross-referenceable figure:
+Cross-references make it easier for readers to navigate your document by providing numbered references and hyperlinks to various entities like figures and tables. Every cross-referenceable entity requires a label (unique identifier prefixed with type e.g. `#fig-element`) and caption (description). For example, this is a cross-referenceable figure:
 
 ``` markdown
 ![Elephant](elephant.png){#fig-elephant}
@@ -22,6 +22,8 @@ Here is what this would look like rendered to HTML:
 ![](images/crossref-figure.png){.border fig-alt="A line drawing of an elephant. The caption 'Figure 1: Elephant' is centered beneath it." width="100%"}
 
 Quarto enables you to create cross-references to figures, tables, equations, sections, code listings, theorems, proofs, and more. Cross references can also be applied to dynamic output from Knitr and Jupyter.
+
+Note that cross reference identifiers must start with their type (e.g. `fig-` or `tbl-`). So the identifier `#fig-elephant` is valid for a cross-reference but the identifiers `#elephant` and `#elephant-fig` are not.
 
 There are options available that control the text used for titles and references. For example, you could change "Figure 1" to read "Fig 1" or "fig. 1". See the [options documentation](#options) for details on how to customize the text used for crossrefs.
 
@@ -42,6 +44,8 @@ As described above, this is the markdown used to create a cross-referenceable fi
 
 See @fig-elephant for an illustration.
 ```
+
+Note again that cross-reference identifiers must start with their type (e.g. `#fig-`).
 
 ### Subfigures
 
@@ -135,9 +139,32 @@ If you'd like subfigure captions that include only an identifier, e.g. "(a)", an
 
 ## Tables
 
-```{.include}
-_table-crossrefs.md
+For tables produced by executable code cells, include a label with a `tbl-` prefix to make them cross-referenceable. For example:
+
+```{python}
+#| label: tbl-planets
+#| tbl-cap: "Planets"
+#| echo: fenced
+
+from IPython.display import Markdown
+from tabulate import tabulate
+table = [["Sun",696000,1989100000],
+         ["Earth",6371,5973.6],
+         ["Moon",1737,73.5],
+         ["Mars",3390,641.85]]
+Markdown(tabulate(
+  table, 
+  headers=["Planet","R (km)", "mass (x 10^29 kg)"]
+))
 ```
+
+::: callout-important
+## Label Prefix
+
+In order for a table to be cross-referenceable, its label must start with the `tbl-` prefix.
+:::
+
+{{< include _table-crossrefs.md >}}
 
 ### Computations
 
@@ -153,7 +180,7 @@ kable(head(iris))
 
 ![](/docs/authoring/images/crossref-table-knitr.png){fig-alt="Example table output." fig-align="center" width="80%"}
 
-You can also create multiple tables within a code cell and reference them as sutables. To do this, add a `tbl-subcap` option with an array of subcaptions. For example:
+You can also create multiple tables within a code cell and reference them as subtables. To do this, add a `tbl-subcap` option with an array of subcaptions. For example:
 
 ``` {{r}}
 #| label: tbl-tables
@@ -240,6 +267,13 @@ SELECT * FROM Customers
 ```
 
 Then we query the customers database (@lst-customers).
+
+::: {.callout-note}
+
+Note that code listings currently only work with _display code blocks_ (as opposed to executable code blocks). If you wish to both execute and reference a code block, use a combination of a display block and a code block with `echo: false` in the cell YAML.
+
+:::
+
 ````
 
 ## Theorems and Proofs
@@ -372,7 +406,7 @@ title: "My Document"
 crossref:
   fig-title: Fig     # (default is "Figure")
   tbl-title: Tbl     # (default is "Table")
-  title-delim: —     # (default is ":")
+  title-delim: "—"   # (default is ":")
 ---
 ```
 

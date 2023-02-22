@@ -12,6 +12,10 @@ Quarto supports executable Julia code blocks within markdown. This allows you to
 
 Quarto executes Julia code using the [IJulia](https://github.com/JuliaLang/IJulia.jl) Jupyter kernel. Below we'll describe how to [install](#installation) IJulia and related requirements but first we'll cover the basics of creating and rendering documents with Julia code blocks.
 
+::: {.callout-important}
+An [issue with quarto and Julia 1.8.4+](https://github.com/quarto-dev/quarto-cli/issues/2539) may lead to the error message `Kernel died before replying to kernel_info`. Earlier versions are not known to have this issue; A workaround is to install the [v1.3 pre-release](https://quarto.org/docs/download/prerelease.html) in which the issue has been fixed.
+:::
+
 ### Code Blocks
 
 Code blocks that use braces around the language name (e.g. ```` ```{julia} ````) are executable, and will be run by Quarto during render. Here is a simple example:
@@ -24,7 +28,7 @@ date: "5/22/2021"
 format:
   html:
     code-fold: true
-jupyter: julia-1.7
+jupyter: julia-1.8
 ---
 
 ## Parametric Plots
@@ -61,7 +65,7 @@ There are many options which control the behavior of code execution and output, 
 
 By default Julia cells will automatically print the value of their last statement (as with the example above where the call to `plot()` resulted in plot output). If you want to display multiple plots (or other types of output) from a single cell you should call the `display()` function explicitly. For example, here we output two plots side-by-side with sub-captions:
 
-```{{julia}}
+``` {{julia}}
 #| label: fig-plots
 #| fig-cap: Multiple Plots
 #| fig-subcap:
@@ -74,27 +78,18 @@ display(plot(sin, x -> sin(2x), 0, 2))
 display(plot(x -> sin(4x), y -> sin(5y), 0, 2))
 ```
 
-``` include
-_jupyter-rendering.md
-```
+{{< include _jupyter-rendering.md >}}
+
 
 ## Installation {#installation}
 
 In order to render documents with embedded Julia code you'll need to install the following components:
 
-1)  Jupyter
-2)  IJulia
-3)  Revise.jl
+1)  IJulia
+2)  Revise.jl
+3)  Optionally, Jupyter Cache
 
 We'll cover each of these in turn below.
-
-### Jupyter
-
-If you already have Python 3 and Jupyter installed in your environment, then proceed to the section below on installing the [IJulia Kernel](#ijulia).
-
-``` include
-_jupyter-install.md
-```
 
 ### IJulia {#ijulia}
 
@@ -103,9 +98,13 @@ _jupyter-install.md
 ``` julia
 using Pkg
 Pkg.add("IJulia")
+using IJulia
+notebook()
 ```
 
-Once you've installed IJulia Quarto has the basic components required to execute Julia cells.
+The first time you run `notebook()`, it will prompt you for whether it should install Jupyter. Hit enter to have it use the [Conda.jl](https://github.com/Luthaf/Conda.jl) package to install a minimal Python+Jupyter distribution (via [Miniconda](http://conda.pydata.org/docs/install/quick.html)) that is private to Julia (not in your `PATH`). On Linux, it defaults to looking for `jupyter` in your `PATH` first, and only asks to installs the Conda Jupyter if that fails.
+
+If you choose not to use Conda.jl to install Python and Jupyter you will need to make sure that you have another installation of it on your system (see the section on [Installing Jupyter](#installing-jupyter) if you need help with this).
 
 ### Revise.jl
 
@@ -130,17 +129,24 @@ end
 
 You can learn more about Revise.jl at <https://timholy.github.io/Revise.jl/stable>.
 
-``` include
-_jupyter-authoring-tools.md
+### Jupyter Cache
+
+[Jupyter Cache](https://jupyter-cache.readthedocs.io/en/latest/) enables you to cache all of the cell outputs for a notebook. If any of the cells in the notebook change then all of the cells will be re-executed.
+
+If you are using the integrated version of Jupyter installed by `IJulia.notebook()`, then you will need to add `jupyter-cache` to the Python environment managed by IJulia. You can do that as follows:
+
+``` julia
+using Conda
+Conda.add("jupyter-cache")
 ```
 
-``` include
-_jupyter-cache.md
-```
+Alternatively, if you are using Jupyter from within any other version of Python not managed by IJulia, see the instructions below on [Installing Jupyter](#installing-jupyter) for details on installing `jupyter cache`,
 
-``` include
-_caching-more.md
-```
+{{< include _jupyter-authoring-tools.md >}}
+
+{{< include _jupyter-cache.md >}}
+
+{{< include _caching-more.md >}}
 
 ## Kernel Selection
 
@@ -161,6 +167,35 @@ You can discover the available Jupyter kernels on your system using the `quarto 
 quarto check jupyter
 ```
 
-``` include
-_jupyter-daemon.md
-```
+{{< include _jupyter-daemon.md >}}
+
+
+## Installing Jupyter {#installing-jupyter}
+
+You can rely on the minimal version of Python and Jupyter that is installed automatically by **IJulia**, or you can choose to install Python and Jupyter separately. If you need to install another version of Jupyter this section describes how.
+
+{{< include _jupyter-install.md >}}
+
+### Jupyter Cache
+
+[Jupyter Cache](https://jupyter-cache.readthedocs.io/en/latest/) enables you to cache all of the cell outputs for a notebook. If any of the cells in the notebook change then all of the cells will be re-executed.
+
+To use Jupyter Cache you'll want to first install the `jupyter-cache` package:
+
++-----------+--------------------------------------+
+| Platform  | Command                              |
++===========+======================================+
+| Windows   | ``` bash                             |
+|           | py -m pip install jupyter-cache      |
+|           | ```                                  |
++-----------+--------------------------------------+
+| Mac/Linux | ``` bash                             |
+|           | python3 -m pip install jupyter-cache |
+|           | ```                                  |
++-----------+--------------------------------------+
+| Conda     | ``` bash                             |
+|           | conda install jupyter-cache          |
+|           | ```                                  |
++-----------+--------------------------------------+
+
+To enable the cache for a document, add the `cache` option. For example:
