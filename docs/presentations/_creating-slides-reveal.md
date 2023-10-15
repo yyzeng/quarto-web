@@ -1,6 +1,6 @@
 ## Creating Slides
 
-In markdown, slides are delineated using headings. For example, here is a simple slide show with two slides (each defined with a level 2 heading (`##`):
+In markdown, slides are delineated using headings. For example, here is a simple slide show with two slides (each defined with a level 2 heading (`##`)):
 
 ``` {.markdown code-preview="/docs/presentations/revealjs/examples/creating-slides-1.qmd"}
 ---
