@@ -1,0 +1,37 @@
+---
+title: "Penguin Bills"
+format: 
+  dashboard:
+    fill: true
+---
+
+```{python}
+import seaborn as sns
+import matplotlib.pyplot as plt
+penguins = sns.load_dataset("penguins")
+```
+
+## Row 
+
+```{python}
+#| title: Bill Length vs. Bill Depth
+fig, ax = plt.subplots(figsize=(12, 6))
+sns.scatterplot(
+    x="bill_length_mm", y="bill_depth_mm", 
+    data=penguins, hue="species",
+    ax=ax
+)
+```
+
+## Row 
+
+```{python}
+#| title: Bill Depth
+sns.histplot(x ="bill_depth_mm", data=penguins, hue="species")
+```
+
+```{python}
+#| title: Bill Length
+sns.histplot(x ="bill_length_mm", data=penguins, hue="species")
+```
+

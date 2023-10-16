@@ -35,7 +35,6 @@ ui.input_checkbox_group(
 def filtered_penguins():
     data = penguins[penguins["species"].isin(input.species())]
     data = data[data["island"].isin(input.islands())]
-    data["bill_ratio"] = (data["bill_length_mm"] / data["bill_depth_mm"])
     return data
 ```
 
@@ -53,22 +52,12 @@ ui.input_checkbox("rug", "Show rug marks", value = False)
 ### Plots
 
 ```{python}
-#| layout: [ [100], [50,50] ]
-
-@render.plot
-def ratio():
-    return sns.displot(
-        filtered_penguins(), x = "bill_ratio", 
-        hue = "species", kind = input.dist(), 
-        fill = True, rug=input.rug()
-    )
-
 @render.plot
 def depth():
     return sns.displot(
         filtered_penguins(), x = "bill_depth_mm", 
         hue = "species", kind = input.dist(), 
-        legend = False, fill = True, rug=input.rug()
+        fill = True, rug=input.rug()
     )
 
 @render.plot
@@ -76,7 +65,7 @@ def length():
     return sns.displot(
         filtered_penguins(), x = "bill_length_mm", 
         hue = "species", kind = input.dist(), 
-        legend=False, fill = True, rug=input.rug()
+        fill = True, rug=input.rug()
     )
 ```
 
@@ -85,7 +74,7 @@ def length():
 ```{python}
 @render.data_frame
 def dataview():
-    return render.DataGrid(filtered_penguins(), height = "790px")
+    return render.DataGrid(filtered_penguins(), height = "775px")
 ```
 
 :::
