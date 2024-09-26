@@ -173,7 +173,6 @@ website:
                     href: docs/visual-editor/vscode/index.qmd
                   - text: "Notebook Editor"
                     href: docs/tools/vscode-notebook.qmd
-                
               - docs/tools/neovim.qmd
               - docs/tools/text-editors.qmd
           - section: "Documents"
@@ -313,6 +312,7 @@ website:
               - docs/authoring/language.qmd
               - docs/authoring/conditional.qmd
               - docs/extensions/nbfilter.qmd
+
     - id: extensions
       title: "Extensions"
       contents:
@@ -352,6 +352,7 @@ website:
             - docs/extensions/revealjs.qmd
             - docs/extensions/project-types.qmd
             - docs/extensions/starter-templates.qmd
+
     - id: manuscripts
       title: "Manuscripts"
       style: "floating"
@@ -406,10 +407,7 @@ website:
                 href: docs/dashboards/computations/julia.qmd
               - text: Using Observable
                 href: docs/dashboards/computations/observable.qmd
-         
-        
-          
-        
+
     - id: reference
       title: "Reference"
       collapse-level: 3
@@ -520,6 +518,7 @@ website:
                 href: docs/reference/globs.qmd
               - text: "Citations"
                 href: docs/reference/metadata/citation.qmd
+
     - id: prerelease
       title: "Quarto 1.3"
       contents:
@@ -552,8 +551,6 @@ website:
             - text: "`kbd` Shortcode"
               href: docs/authoring/markdown-basics.qmd#keyboard-shortcuts
 
- 
-
 bibliography: references.bib
 
 format:
@@ -570,10 +567,8 @@ format:
       body-width: 900px
       margin-width: 300px
 
-
 filters:
   - filters/tools-tabset.lua
-
 
 freeze: true
 
@@ -581,4 +576,4 @@ editor: visual
 
 profile:
   group: 
-    - [prerelease,rc]
+    - [prerelease, rc]
